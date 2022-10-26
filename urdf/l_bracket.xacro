@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="l_bracket" params="name roll pitch yaw">
+        <link name="${name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/l_bracket.stl" scale="0.07 0.07 0.07"/>
+                </geometry>
+                <material name="yf_black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/l_bracket.stl" scale="0.07 0.07 0.07"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.01" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="0 0.248211 0.100023" />
+                    <inertia 
+                        ixx="0.000128" ixy="0" ixz="0"
+                        iyy="0.000077" iyz="-0.000037" izz="0.000108" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

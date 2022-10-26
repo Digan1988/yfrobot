@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot>
+
+    <material name="yf_black">
+        <texture filename="package://yfrobot_description/meshes/yf_black.png"/>
+    </material>
+
+    <material name="yf_silver">
+        <color rgba="0.75 0.75 0.75 1"/>
+    </material>
+    
+</robot>

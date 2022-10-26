@@ -1,0 +1,41 @@
+yfrobot:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers ---------------------------------------
+  servo1_to_2_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 1_servo_to_2_servo
+    pid: {p: 100, i: 0.0, d: 0.0}
+
+  servo2_to_1_ib_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 2_servo_to_1_ib
+    pid: {p: 500, i: 0.0, d: 0.0}
+
+  ib_to_3_servo_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 2_ib_to_3_servo
+    pid: {p: 300, i: 0.0, d: 0.0}
+
+  servo4_to_3_ib_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 4_servo_to_3_ib
+    pid: {p: 50, i: 0.0, d: 0.0}
+
+  servo5_to_grab_base_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 5_servo_to_grab_base
+    pid: {p: 30, i: 0.0, d: 0.0}
+
+  servo6_to_right_grab_servo_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 6_servo_to_right_grab
+    pid: {p: 30, i: 0.0, d: 0.0}
+
+  #6_servo_to_left_grab_position_controller:
+  #  type: effort_controllers/JointPositionController
+  #  joint: 6_servo_to_left_grab
+  #  pid: {p: 30, i: 0.0, d: 0.0}

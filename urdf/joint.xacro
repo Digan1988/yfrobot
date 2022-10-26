@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+    
+    <xacro:macro name="m_joint_fixed" params="parent child origin_xyz:='0 0 0' origin_rpy:='0 0 0'">
+        <joint name="${parent}_to_${child}" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="m_joint" params="parent child origin_xyz:='0 0 0' axis_xyz:='0 0 1' origin_rpy:='0 0 0' limit_lower:=0 limit_upper:=0">
+        <joint name="${parent}_to_${child}" type="revolute">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+            <axis xyz="${axis_xyz}"/> 
+            <limit effort="9400" lower="${limit_lower}" upper="${limit_upper}" velocity="${pi}"/>
+            <dynamics friction="0.1"/>
+        </joint>
+        <transmission name="${parent}_to_${child}_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${parent}_to_${child}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${parent}_to_${child}_transmission_servo">
+                <mechanicalReduction>1</mechanicalReduction>
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:macro name="m_joint_mimic" params="parent child mimic_joint origin_xyz:='0 0 0' type:='fixed' axis_xyz:='0 0 1' origin_rpy:='0 0 0' limit_lower:=0 limit_upper:=0">
+        <joint name="${parent}_to_${child}" type="${type}">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+            <axis xyz="${axis_xyz}"/> 
+            <limit effort="9400" lower="${limit_lower}" upper="${limit_upper}" velocity="${pi}"/>
+            <mimic joint="${mimic_joint}" multiplier="-1"/>
+            <dynamics damping="0.1" friction="0.0" />
+        </joint>
+    </xacro:macro>
+
+</robot>

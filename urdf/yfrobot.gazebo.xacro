@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- ros_control plugin -->
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/yfrobot</robotNamespace>
+			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+			<legacyModeNS>true</legacyModeNS>
+		</plugin>
+	</gazebo>
+
+	<gazebo reference="base_link">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="1_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="2_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="1_ib">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="2_ib">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="3_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="1_lb">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="column">
+		<material>Gazebo/White</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="2_lb">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="4_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="3_ib">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="5_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	    <!-- Hand -->
+	<gazebo reference="grab_base">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+	<gazebo reference="6_servo">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+	</gazebo>
+
+    <!-- Left Finger -->
+	<gazebo reference="left_grab">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+		<mu1>0.2</mu1>
+    	<mu2>0.2</mu2>
+		<gravity>true</gravity>
+		<selfCollide>true</selfCollide>
+	</gazebo>
+
+    <!-- Right Finger -->
+	<gazebo reference="right_grab">
+		<material>Gazebo/FlatBlack</material>
+		<dampingFactor>0.1</dampingFactor>
+		<mu1>0.2</mu1>
+    	<mu2>0.2</mu2>
+		<gravity>true</gravity>
+		<selfCollide>true</selfCollide>
+	</gazebo>
+
+    <xacro:macro name="mimic_joint_plugin_gazebo" params="name_prefix parent_joint mimic_joint has_pid:=false multiplier:=1.0 offset:=0 sensitiveness:=0.0 max_effort:=1.0 robot_namespace:=''">
+		<gazebo>
+			<plugin name="${name_prefix}mimic_joint_plugin" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+				<joint>${parent_joint}</joint>
+				<mimicJoint>${mimic_joint}</mimicJoint>
+				<xacro:if value="${has_pid}">                     <!-- if set to true, PID parameters from "/gazebo_ros_control/pid_gains/${mimic_joint}" are loaded -->
+					<hasPID />
+				</xacro:if>
+				<multiplier>${multiplier}</multiplier>
+				<offset>${offset}</offset>
+				<sensitiveness>${sensitiveness}</sensitiveness>   <!-- if absolute difference between setpoint and process value is below this threshold, do nothing; 0.0 = disable [rad] -->
+				<maxEffort>${max_effort}</maxEffort>              <!-- only taken into account if has_pid:=true [Nm] -->
+				<xacro:unless value="${robot_namespace == ''}">
+					<robotNamespace>${robot_namespace}</robotNamespace>
+				</xacro:unless>
+			</plugin>
+		</gazebo>
+  	</xacro:macro>
+</robot>

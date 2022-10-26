@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<launch>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find yfrobot_description)/config/position_controller.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node pkg="controller_manager" type="spawner" name="controller_spawner" respawn="false"
+	output="screen" ns="/yfrobot" 
+    args="joint_state_controller
+        servo1_to_2_servo_position_controller
+        servo2_to_1_ib_servo_position_controller
+        ib_to_3_servo_servo_position_controller
+        servo4_to_3_ib_servo_position_controller
+        servo5_to_grab_base_servo_position_controller
+        servo6_to_right_grab_servo_position_controller" />
+</launch>

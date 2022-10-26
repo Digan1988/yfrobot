@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="base" params="name origix_z:=0">
+        <link name="${name}">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 ${origix_z}"/>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/yf_base.stl" scale="20 20 20"/>
+                </geometry>
+                <material name="yf_black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="1.8 1.8 0.55"/>
+                </geometry>
+                <origin xyz="0 0 ${origix_z}" rpy="0 0 0"/>
+            </collision>
+            <inertial>
+                <mass value="0.1" />
+                <origin rpy="0 0 0" xyz="0 0 0" />
+                <inertia ixx="0.016091" ixy="0" ixz="0"
+                         iyy="0.016091" iyz="0" izz="0.029525" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

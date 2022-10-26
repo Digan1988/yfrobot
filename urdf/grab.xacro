@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="grab_right" params="name roll pitch yaw">
+        <link name="${name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <material name="yf_silver"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.025" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="0.326607 -0.177561 0.000182" />
+                    <inertia 
+                        ixx="0.003091" ixy="-0.001000" ixz="-0.000002"
+                        iyy="0.003554" iyz="-0.000001" izz="0.006624" />
+            </inertial>
+        </link>
+    </xacro:macro>
+
+    <xacro:macro name="grab_left" params="name roll pitch yaw">
+        <link name="${name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <material name="yf_silver"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.025" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="0 0 0" />
+                    <inertia 
+                        ixx="0.003091" ixy="0.001000" ixz="-0.000002"
+                        iyy="0.003554" iyz="-0.000001" izz="0.006624" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

@@ -1,0 +1,5 @@
+<launch>
+    <!-- Robot description -->
+    <!-- Команда парсит и генерирует urdf по xacro (В дистрибутивах ROS melodic и более поздних версиях вы должны опустить аргумент {inorder})-->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find yfrobot_description)/urdf/yfrobot.xacro'" />
+</launch>

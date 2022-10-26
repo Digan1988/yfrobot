@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./grab_base.xacro" />
+    <xacro:include filename="./grab.xacro" />
+
+    <xacro:macro name="gripper">
+        <xacro:grab_base name="${l12}" roll="0" pitch="0" yaw="0"/>
+
+        <xacro:m_joint_fixed parent="${l12}" child="${l13}" origin_xyz="${servo_depth * 2 - 0.2} ${servo_width - 0.22} ${-servo_height/2 - 0.1}"/>
+
+        <xacro:servo name="${l13}" roll="${0}" pitch="${0}" yaw="${-pi/2}" />
+
+        <xacro:m_joint parent="${l13}" child="${l14}"
+                    axis_xyz="0 0 1" origin_xyz="${0} ${-0.2} ${servo_height/2 + 0.15}"
+                    limit_lower="${0.1}" limit_upper="${0.78}"/>
+
+        <xacro:grab_right name="${l14}" roll="${pi}" pitch="${0}" yaw="${pi/2}"/>
+
+        <xacro:m_joint_mimic type="revolute" parent="${l13}" child="${l15}" mimic_joint="${l13}_to_${l14}"
+                    axis_xyz="0 0 1" origin_xyz="${0} ${-0.75} ${servo_height/2 + 0.15}"
+                    limit_lower="${-pi}" limit_upper="${pi}"/>
+
+        <xacro:mimic_joint_plugin_gazebo name_prefix="${l13}_to_${l15}"
+                                     parent_joint="${l13}_to_${l14}"
+                                     mimic_joint="${l13}_to_${l15}"
+                                     has_pid="false"
+                                     multiplier="-1.0"
+                                     max_effort="10.6" />
+
+        <xacro:grab_left name="${l15}" roll="${0}" pitch="${0}" yaw="${-pi/2}"/>
+    </xacro:macro>
+</robot>

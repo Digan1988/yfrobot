@@ -1,0 +1,23 @@
+gazebo_ros_control:
+  pid_gains:
+    6_servo_to_right_grab:
+      p: 1.0
+      i: 0.0
+      d: 0.0
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    6_servo_to_left_grab:
+      p: 1.0
+      i: 0.0
+      d: 0.0
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    6_servo_to_left_grab:
+      p: 1.0
+      i: 0.0
+      d: 0.0
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true

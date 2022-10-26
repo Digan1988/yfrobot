@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:property name="servo_mesh_scale" value="0.02 0.02 0.02" />
+
+    <xacro:macro name="default_inertial" params="mass">
+        <inertial>
+                <mass value="${mass}" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                     iyy="1.0" iyz="0.0"
+                     izz="1.0" />
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="servo" params="name roll pitch yaw joint_name:='' origin_x:=0 origin_y:=0 origin_z:=0">
+        <link name="${name}">
+            <visual>
+                <origin rpy="${roll} ${pitch} ${yaw}" xyz="${origin_x} ${origin_y} ${origin_z}"/>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/mg996r_v17_origin_fixed.stl" scale="${servo_mesh_scale}"/>
+                </geometry>
+                <material name="yf_black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="${servo_width + 0.2} ${servo_depth} ${servo_height + 0.25}"/>
+                </geometry>
+                <origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.055" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="-0.001464 -0.001065 -0.040398" />
+                    <inertia 
+                        ixx="0.014704" ixy="0" ixz="-0.000249"
+                        iyy="0.025090" iyz="0.000014" izz="0.016354" />
+            </inertial>
+        </link>
+        <!--<transmission name="${name}_rotate" type="SimpleTransmission" >
+            <joint name="${joint_name}" />
+            <actuator name="servo">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>-->
+    </xacro:macro>
+</robot>

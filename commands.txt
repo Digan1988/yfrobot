@@ -1,0 +1,27 @@
+roslaunch yfrobot_description view_robot.launch
+
+roslaunch yfrobot_description spawn.launch
+
+find . -iname "*.xacro" | xargs sed -i 's#<\([/]\?\)\(if\|unless\|include\|arg\|property\|macro\|insert_block\)#<\1xacro:\2#g'
+
+rostopic list
+rosservice list
+
+rostopic pub -l /yfrobot/servo1_to_2_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+rostopic pub -l /yfrobot/servo2_to_1_ib_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+rostopic pub -l /yfrobot/ib_to_3_servo_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+rostopic pub -l /yfrobot/servo4_to_3_ib_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+rostopic pub -l /yfrobot/servo5_to_grab_base_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+rostopic pub -l /yfrobot/servo6_to_right_grab_servo_position_controller/command std_msgs/Float64 "data: 0.7"
+
+cd cd catkin_ws/src/
+git clone https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins.git
+git clone https://github.com/roboticsgroup/roboticsgroup_upatras_gazebo_plugins.git
+cd ../
+catkin_make
+source devel/setup.bash
+
+
+rosrun yfrobot_description publisher.py
+
+sudo apt-get install ros-melodic-ros-control ros-melodic-ros-controllers

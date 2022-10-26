@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="inclination_bracket" params="name xyz='0 0 0' rpy:='0 0 0'">
+        <link name="${name}">
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/inclination_bracket.stl" scale="0.09 0.09 0.09"/>
+                </geometry>
+                <material name="yf_black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/inclination_bracket.stl" scale="0.09 0.09 0.09"/>
+                </geometry>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.021" />
+                    <origin rpy="${rpy}" xyz="0.003738 -0.008440 0.424712" />
+                    <inertia 
+                        ixx="0.009396" ixy="0.000000" ixz="0.000071"
+                        iyy="0.021175" iyz="0" izz="0.013721" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

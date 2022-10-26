@@ -1,0 +1,8 @@
+<launch>
+  <!-- Этот файл парсит URDF и создает параметр robot_description-->
+  <include file="$(find yfrobot_description)/launch/upload_model.launch" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+  <!-- Запускает rviz с определенной конфигурацией -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find yfrobot_description)/rviz/robot.rviz" />
+</launch>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="l00" value="base_link"/>
+    <xacro:property name="l01" value="1_servo"/>
+    <xacro:property name="l02" value="2_servo"/>
+    <xacro:property name="l03" value="1_ib"/>
+    <xacro:property name="l04" value="2_ib"/>
+    <xacro:property name="l05" value="3_servo"/>
+    <xacro:property name="l06" value="1_lb"/>
+    <xacro:property name="l07" value="column"/>
+    <xacro:property name="l08" value="2_lb"/>
+    <xacro:property name="l09" value="4_servo"/>
+    <xacro:property name="l10" value="3_ib"/>
+    <xacro:property name="l11" value="5_servo"/>
+    <xacro:property name="l12" value="grab_base"/>
+    <xacro:property name="l13" value="6_servo"/>
+    <xacro:property name="l14" value="right_grab"/>
+    <xacro:property name="l15" value="left_grab"/>
+
+    <xacro:property name="pi_offset" value="0.00001"/>
+
+    <xacro:property name="servo_width" value="0.8" />
+    <xacro:property name="servo_height" value="0.6" />
+    <xacro:property name="servo_depth" value="0.4" />
+    <xacro:property name="cover_height" value="0.2" />
+
+    <xacro:property name="bracket_width" value="0.7" />
+    <xacro:property name="bracket_height" value="0.8" />
+    <xacro:property name="bracket_depth" value="0.3" />
+</robot>

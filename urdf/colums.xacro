@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="column" params="name roll pitch yaw">
+        <link name="${name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/column.stl" scale="0.036 0.036 0.036"/>
+                </geometry>
+                <material name="yf_silver"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/column.stl" scale="0.036 0.036 0.036"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.01" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="0 0 0" />
+                    <inertia 
+                        ixx="0.004136" ixy="0" ixz="0"
+                        iyy="0.004136" iyz="0" izz="0.000232" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="yfrobot">
+    <xacro:include filename="./yfrobot.gazebo.xacro" />
+    <xacro:include filename="./materials.xacro" />
+    <xacro:include filename="./robot_parameters.xacro"/>
+    <xacro:include filename="./joint.xacro"/>
+    <xacro:include filename="./base.xacro"/>
+    <xacro:include filename="./servo.xacro" />
+    <xacro:include filename="./inclination_bracket.xacro" />
+    <xacro:include filename="./l_bracket.xacro" />
+    <xacro:include filename="./colums.xacro" />
+    <xacro:include filename="./gripper.xacro" />
+
+    <link name="world"/>
+
+    <xacro:m_joint_fixed parent="world" child="${l00}" origin_xyz="0 0 0.3"/>
+
+    <xacro:base name="${l00}" origix_z="0.02"/>
+
+    <xacro:m_joint_fixed parent="${l00}" child="${l01}" origin_xyz="${-servo_width/2} 0 ${servo_height}" />
+
+    <xacro:servo name="${l01}" roll="0" pitch="0" yaw="0" joint_name="${l00}_to_${l01}"/>
+
+    <xacro:m_joint parent="${l01}" child="${l02}" 
+                axis_xyz="0 0 1" origin_xyz="${servo_width/4} 0 ${servo_width / 2.0 + 0.3}" 
+                limit_lower="${-pi}" limit_upper="${pi}"/>
+
+    <xacro:servo name="${l02}" origin_x="${-servo_width/4}" roll="${-pi/2}" pitch="0" yaw="${pi}" joint_name="${l01}_to_${l02}"/>
+
+    <xacro:m_joint parent="${l02}" child="${l03}"
+                axis_xyz="0 1 0" origin_xyz="${-servo_width/2} 0 0" 
+                limit_lower="${-2}" limit_upper="${2}"/>
+
+    <xacro:inclination_bracket name="${l03}" xyz="0 0 ${bracket_height + 0.2}" rpy="0 ${pi} ${pi/2}"/>
+
+    <xacro:m_joint_fixed parent="${l03}" child="${l04}" />
+
+    <xacro:inclination_bracket name="${l04}" xyz="0 0 ${bracket_height + 0.2}" rpy="0 0 ${pi/2}" />
+
+    <xacro:m_joint parent="${l04}" child="${l05}"
+                axis_xyz="0 1 0" origin_xyz="0 0 ${2 * servo_width + 0.4}" 
+                limit_lower="${-1.25}" limit_upper="${pi}"/>
+
+    <xacro:servo name="${l05}" origin_x="${-0.2}" roll="${pi/2}" pitch="0" yaw="0" joint_name="${l04}_to_${l05}"/>
+
+    <xacro:m_joint_fixed parent="${l05}" child="${l06}" origin_xyz="-0.4 0 ${servo_depth/2 + 0.01}" />
+
+    <xacro:l_bracket name="${l06}" roll="${pi}" pitch="0" yaw="${-pi/2}"/>
+
+    <xacro:m_joint_fixed parent="${l06}" child="${l07}" origin_xyz="-0.93 0 -0.2"/>
+
+    <xacro:column name="${l07}" roll="0" pitch="${pi/2}" yaw="0" />
+
+    <xacro:m_joint_fixed parent="${l07}" child="${l08}" origin_xyz="-0.95 0 ${servo_depth/2 + 0.01}"/>
+
+    <xacro:l_bracket name="${l08}" roll="${pi}" pitch="0" yaw="${pi/2}" />
+
+    <xacro:m_joint_fixed parent="${l08}" child="${l09}" origin_xyz="-0.2 0 ${-servo_depth/2 - 0.01}"/>
+
+    <xacro:servo name="${l09}" roll="${-pi/2}" pitch="0" yaw="${pi}" joint_name="${l08}_to_${l09}"/>
+
+    <xacro:m_joint parent="${l09}" child="${l10}" 
+                axis_xyz="0 1 0" origin_xyz="${-0.2} 0 0" 
+                limit_lower="${-2.5}" limit_upper="${2.5}"/>
+
+    <xacro:inclination_bracket name="${l10}" xyz="${-bracket_height - 0.2} 0 0" rpy="${-pi/2} ${pi} ${-pi/2}" />
+
+    <xacro:m_joint_fixed parent="${l10}" child="${l11}" origin_xyz="${-bracket_height + 0.02} 0 0"/>
+
+    <xacro:servo name="${l11}" roll="${pi/2}" pitch="${0}" yaw="${-pi/2}" />
+
+    <xacro:m_joint parent="${l11}" child="${l12}"
+                axis_xyz="1 0 0" origin_xyz="${-bracket_height - servo_height - 0.2} -0.2 0" 
+                limit_lower="${-pi}" limit_upper="${pi}"/>
+
+    <xacro:gripper/>
+</robot>

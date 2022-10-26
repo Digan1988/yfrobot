@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="./robot_parameters.xacro"/>
+
+    <xacro:macro name="grab_base" params="name roll pitch yaw">
+        <link name="${name}">
+            <visual>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}" />
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab_base.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <material name="yf_black"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <mesh filename="package://yfrobot_description/meshes/grab_base.stl" scale="0.11 0.11 0.11"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="${roll} ${pitch} ${yaw}"/>
+            </collision>
+            <inertial>
+                    <mass value="0.02" />
+                    <origin rpy="${roll} ${pitch} ${yaw}" xyz="0.550034 0.185510 0" />
+                    <inertia 
+                        ixx="0.008373" ixy="0" ixz="0"
+                        iyy="0.003277" iyz="0" izz="0.011623" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>
